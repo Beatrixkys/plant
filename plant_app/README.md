@@ -1,6 +1,15 @@
 # plant_app
 
-A new Flutter project.
+Trying out new functions and styles within Flutter as a test application 
+
+Features Tested Include
+-Grid Layout
+-Dark/Light Mode 
+
+Features To Include 
+-Notification 
+-Timer Features 
+
 
 ## Getting Started
 
