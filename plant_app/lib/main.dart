@@ -22,7 +22,11 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int _selectedIndex = 0;
-  final _screens = [HomeScreen(), SettingsScreen(), AddScreen()];
+  final _screens = [
+    const HomeScreen(),
+    const AddScreen(),
+    const SettingsScreen()
+  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -44,7 +48,7 @@ class _MyAppState extends State<MyApp> {
             darkTheme: MyThemes.darkTheme,
             home: Scaffold(
               appBar: AppBar(
-                actions: [ChangeThemeButton()],
+                actions: const [ChangeThemeButton()],
               ),
               body: _screens[_selectedIndex],
               bottomNavigationBar: BottomNavigationBar(

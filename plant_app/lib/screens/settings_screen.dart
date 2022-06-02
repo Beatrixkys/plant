@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plant_app/components/myheader.dart';
 import 'package:plant_app/main.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -9,20 +10,8 @@ class SettingsScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          SizedBox(
-            height: 200,
-            child: Center(child: Text('Water your Plants BIJ')),
-          ),
-          IconButton(
-              icon: Icon(MyApp.themeNotifier.value == ThemeMode.light
-                  ? Icons.dark_mode
-                  : Icons.light_mode),
-              onPressed: () {
-                MyApp.themeNotifier.value =
-                    MyApp.themeNotifier.value == ThemeMode.light
-                        ? ThemeMode.dark
-                        : ThemeMode.light;
-              }),
+          const MyHeader(title: 'Update Your Settings'),
+          //insert listview
         ],
       ),
     );

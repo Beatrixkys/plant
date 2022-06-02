@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:plant_app/components/list_builders/card_builder.dart';
+import 'package:form_field_validator/form_field_validator.dart';
+import 'package:plant_app/components/myheader.dart';
+import 'package:plant_app/components/text_field.dart';
+import 'package:plant_app/constant.dart';
 
 class AddScreen extends StatefulWidget {
   const AddScreen({Key? key}) : super(key: key);
@@ -9,24 +12,54 @@ class AddScreen extends StatefulWidget {
 }
 
 class _AddScreenState extends State<AddScreen> {
+  final _formKey = GlobalKey<FormState>();
+
+  String name = '';
+  String amount = '0';
+
+  final nameController = TextEditingController();
+  final amountController = TextEditingController();
+
+  final nameVal =
+      MultiValidator([RequiredValidator(errorText: 'Field is Required')]);
+
+  @override
+  void dispose() {
+    amountController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    double scrollerHeight = MediaQuery.of(context).size.height * 0.6;
-    double headerHeight = MediaQuery.of(context).size.height * 0.2;
+    double formwidth = MediaQuery.of(context).size.width * 0.8;
 
     return Scaffold(
       body: Column(
         children: [
-          SizedBox(
-            height: headerHeight,
-            child: Center(
-                child: Text(
-                    'Water your Plants Bitch, \n They Thirstier Than You')),
-          ),
+          const MyHeader(title: 'Add a Plant Baby!'),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            height: scrollerHeight,
-            child: const PlantList(),
+            width: formwidth,
+            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+            child: Form(
+                child: Column(
+              children: [
+                RoundTextField(
+                    controller: nameController,
+                    title: 'Plant Name',
+                    onSaved: (String? value) {
+                      name != value;
+                    },
+                    validator: nameVal),
+                space,
+                RoundDoubleTextField(
+                    controller: amountController,
+                    title: 'Amount Water Plant Needs (ml)',
+                    onSaved: (String? value) {
+                      amount != value;
+                    },
+                    validator: nameVal),
+              ],
+            )),
           )
         ],
       ),

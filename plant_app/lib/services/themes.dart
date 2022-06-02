@@ -18,6 +18,7 @@ class MyThemes {
     primaryColor: Colors.black,
     colorScheme: ColorScheme.dark(primary: Colors.green.shade200),
     iconTheme: IconThemeData(color: Colors.green.shade200),
+    fontFamily: 'Nunito',
   );
   static final lightTheme = ThemeData(
     scaffoldBackgroundColor: Colors.white,
@@ -26,5 +27,6 @@ class MyThemes {
     colorScheme: ColorScheme.light(
       primary: Colors.green.shade600,
     ),
+    fontFamily: 'Nunito',
   );
 }

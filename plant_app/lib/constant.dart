@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 ///Text styles
 const kHeadingTextStyle = TextStyle(
   fontSize: 22.0,
-  fontWeight: FontWeight.w800,
+  fontWeight: FontWeight.w700,
+  fontFamily: 'Nunito',
 );
 
 const kTitleTextStyle = TextStyle(
   fontSize: 20,
   fontWeight: FontWeight.w600,
+  fontFamily: 'Nunito',
 );
 
 const kSubTextStyle = TextStyle(
