@@ -16,9 +16,11 @@ class _AddScreenState extends State<AddScreen> {
 
   String name = '';
   String amount = '0';
+  String frequency = '1';
 
   final nameController = TextEditingController();
   final amountController = TextEditingController();
+  final frequencyController = TextEditingController();
 
   final nameVal =
       MultiValidator([RequiredValidator(errorText: 'Field is Required')]);
@@ -41,25 +43,46 @@ class _AddScreenState extends State<AddScreen> {
             width: formwidth,
             padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
             child: Form(
+                key: _formKey,
                 child: Column(
-              children: [
-                RoundTextField(
-                    controller: nameController,
-                    title: 'Plant Name',
-                    onSaved: (String? value) {
-                      name != value;
-                    },
-                    validator: nameVal),
-                space,
-                RoundDoubleTextField(
-                    controller: amountController,
-                    title: 'Amount Water Plant Needs (ml)',
-                    onSaved: (String? value) {
-                      amount != value;
-                    },
-                    validator: nameVal),
-              ],
-            )),
+                  children: [
+                    RoundTextField(
+                        controller: nameController,
+                        title: 'Plant Name',
+                        onSaved: (String? value) {
+                          name != value;
+                        },
+                        validator: nameVal),
+                    space,
+                    RoundDoubleTextField(
+                        controller: amountController,
+                        title: 'Amount Water Plant Needs (ml)',
+                        onSaved: (String? value) {
+                          amount != value;
+                        },
+                        validator: nameVal),
+                    space,
+                    RoundDoubleTextField(
+                        controller: frequencyController,
+                        title: 'Watering Frequency (Days)',
+                        onSaved: (String? value) {
+                          amount != value;
+                        },
+                        validator: nameVal),
+                    space,
+                    SizedBox(
+                      width: 300,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: const Text(
+                          'Save',
+                          style: kButtonTextStyle,
+                        ),
+                        style: kButtonStyle,
+                      ),
+                    ),
+                  ],
+                )),
           )
         ],
       ),

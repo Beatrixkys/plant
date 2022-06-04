@@ -20,6 +20,9 @@ class _PlantListState extends State<PlantList> {
     PlantsData(name: "Alfred", wateramount: 50),
     PlantsData(name: "Alfred", wateramount: 50),
     PlantsData(name: "Alfred", wateramount: 50),
+    PlantsData(name: "Alfred", wateramount: 50),
+    PlantsData(name: "Alfred", wateramount: 50),
+    PlantsData(name: "Alfred", wateramount: 50),
   ];
   @override
   Widget build(BuildContext context) {

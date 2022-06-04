@@ -19,7 +19,7 @@ const kSubTextStyle = TextStyle(
 );
 
 const kButtonTextStyle =
-    TextStyle(color: Colors.black54, fontWeight: FontWeight.w700, fontSize: 16);
+    TextStyle(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 20);
 
 final kButtonStyle = ButtonStyle(
   padding: MaterialStateProperty.all(
