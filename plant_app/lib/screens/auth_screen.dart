@@ -4,7 +4,6 @@ import 'package:plant_app/components/loading.dart';
 import 'package:plant_app/components/myheader.dart';
 import 'package:plant_app/components/text_field.dart';
 import 'package:plant_app/constant.dart';
-import 'package:plant_app/services/auth.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -67,7 +66,7 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return loading
-        ? Loading()
+        ? const Loading()
         : Scaffold(
             body: Column(
             children: [

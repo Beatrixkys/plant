@@ -1,15 +1,25 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:plant_app/components/list_builders/card_builder.dart';
 import 'package:plant_app/constant.dart';
-import 'package:async/async.dart';
+import 'package:plant_app/services/database.dart';
+
+import '../services/logic.dart';
 
 class WaterPopUp extends StatelessWidget {
-  const WaterPopUp({Key? key}) : super(key: key);
+  final List waterHistory;
+  final int amount;
+  final String docid;
+  final String userid; 
 
-//use the back part to reset the plant water state to 0 
-  void restartTimer() {
-    RestartableTimer timer = RestartableTimer(const Duration(days: 5), () {});
-    timer.reset();
-  }
+  const WaterPopUp(
+      {Key? key,
+      required this.waterHistory,
+      required this.amount,
+      required this.docid, required this.userid})
+      : super(key: key);
+
+//use the back part to reset the plant
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +30,21 @@ class WaterPopUp extends StatelessWidget {
           style: kTitleTextStyle,
         )),
       ),
-      content: Image.asset("assets/plant.png", height: 150),
+      content: Column(
+        children: [
+          Image.asset("assets/plant.png", height: 150),
+          DateList(dates: waterHistory),
+        ],
+      ),
       actions: [
         Center(
           child: IconButton(
             onPressed: () {
-              restartTimer(); 
+              Timestamp nextWaterDate = LogicService().nextWater(amount);
+              DatabaseService(userid)
+                  .updatePlantHistory(nextWaterDate, docid);
             },
-            icon: Icon(Icons.water_drop),
+            icon: const Icon(Icons.water_drop),
             iconSize: 50,
           ),
         )

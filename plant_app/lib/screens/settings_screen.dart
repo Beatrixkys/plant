@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/components/myheader.dart';
 import 'package:plant_app/constant.dart';
-import 'package:plant_app/main.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -14,8 +13,8 @@ class SettingsScreen extends StatelessWidget {
           const MyHeader(title: 'Update Your Settings'),
           CircleAvatar(
             backgroundColor: Theme.of(context).colorScheme.primary,
-            child: Text("UserName"),
             radius: 50,
+            child: const Text("UserName"),
           ),
           //insert sized box then list view
           smallSpace,
@@ -23,7 +22,7 @@ class SettingsScreen extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.4,
             width: MediaQuery.of(context).size.height * 0.7,
             child: ListView(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               children: [
                 ListTile(
                   leading: Icon(

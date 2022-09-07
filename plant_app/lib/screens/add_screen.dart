@@ -3,9 +3,11 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:plant_app/components/myheader.dart';
 import 'package:plant_app/components/text_field.dart';
 import 'package:plant_app/constant.dart';
+import 'package:plant_app/services/database.dart';
 
 class AddScreen extends StatefulWidget {
-  const AddScreen({Key? key}) : super(key: key);
+  final String uid;
+  const AddScreen({Key? key, required this.uid}) : super(key: key);
 
   @override
   State<AddScreen> createState() => _AddScreenState();
@@ -73,12 +75,23 @@ class _AddScreenState extends State<AddScreen> {
                     SizedBox(
                       width: 300,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            int amount = int.parse(amountController.value.text);
+                            int consistency =
+                                int.parse(frequencyController.value.text);
+
+                            var name = nameController.value.text;
+
+                            DatabaseService(widget.uid)
+                                .addPlant(name, amount, consistency);
+                          }
+                        },
+                        style: kButtonStyle,
                         child: const Text(
                           'Save',
                           style: kButtonTextStyle,
                         ),
-                        style: kButtonStyle,
                       ),
                     ),
                   ],
