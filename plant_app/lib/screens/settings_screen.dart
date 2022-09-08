@@ -1,12 +1,26 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_app/components/myheader.dart';
 import 'package:plant_app/constant.dart';
 
-class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+import '../model/user_model.dart';
 
+import '../services/database.dart';
+
+class SettingsScreen extends StatelessWidget {
+  SettingsScreen({
+    Key? key,
+  }) : super(key: key);
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
+    final User? user = _auth.currentUser;
+    final uid = user!.uid;
+
+    MyUserData? userData;
+
+    Stream<MyUserData?> myUserData = DatabaseService(uid).user;
     return Scaffold(
       body: Column(
         children: [
@@ -14,7 +28,19 @@ class SettingsScreen extends StatelessWidget {
           CircleAvatar(
             backgroundColor: Theme.of(context).colorScheme.primary,
             radius: 50,
-            child: const Text("UserName"),
+            child: StreamBuilder<MyUserData?>(
+              stream: myUserData,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  userData = snapshot.data;
+                  var value = userData!.name;
+                  return Text(
+                    value,
+                  );
+                }
+                return const Center(child: CircularProgressIndicator());
+              },
+            ),
           ),
           //insert sized box then list view
           smallSpace,

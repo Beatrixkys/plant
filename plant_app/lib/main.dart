@@ -55,7 +55,9 @@ class _MyAppState extends State<MyApp> {
               darkTheme: MyThemes.darkTheme,
               initialRoute: '/',
               routes: {
-                '/': (context) => const AuthenticationWrapper(),
+                '/': (context) => const AuthScreen(),
+                '/home': (context) =>
+                    const AppBase(uid: "YShRjJui0UNWZfNCSEf7GVyvmWr2"),
               },
             );
           }),

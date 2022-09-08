@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:plant_app/components/list_builders/card_builder.dart';
 import 'package:plant_app/constant.dart';
 import 'package:plant_app/services/database.dart';
 
@@ -10,13 +9,14 @@ class WaterPopUp extends StatelessWidget {
   final List waterHistory;
   final int amount;
   final String docid;
-  final String userid; 
+  final String userid;
 
   const WaterPopUp(
       {Key? key,
       required this.waterHistory,
       required this.amount,
-      required this.docid, required this.userid})
+      required this.docid,
+      required this.userid})
       : super(key: key);
 
 //use the back part to reset the plant
@@ -33,7 +33,7 @@ class WaterPopUp extends StatelessWidget {
       content: Column(
         children: [
           Image.asset("assets/plant.png", height: 150),
-          DateList(dates: waterHistory),
+          const Text("Click to Water"),
         ],
       ),
       actions: [
@@ -41,11 +41,11 @@ class WaterPopUp extends StatelessWidget {
           child: IconButton(
             onPressed: () {
               Timestamp nextWaterDate = LogicService().nextWater(amount);
-              DatabaseService(userid)
-                  .updatePlantHistory(nextWaterDate, docid);
+              DatabaseService(userid).updatePlantHistory(nextWaterDate, docid);
+              Navigator.pop(context);
             },
             icon: const Icon(Icons.water_drop),
-            iconSize: 50,
+            iconSize: 100,
           ),
         )
       ],

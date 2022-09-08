@@ -4,6 +4,7 @@ import 'package:plant_app/components/loading.dart';
 import 'package:plant_app/components/myheader.dart';
 import 'package:plant_app/components/text_field.dart';
 import 'package:plant_app/constant.dart';
+import 'package:plant_app/services/auth.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
 //Database
-  //final AuthService _auth = AuthService();
+  final AuthService _auth = AuthService();
   String error = '';
   String email = "";
   String password = "";
@@ -60,6 +61,7 @@ class _AuthScreenState extends State<AuthScreen> {
       passwordController.text = '';
       nameController.text = '';
       showSignIn = !showSignIn;
+      //loading = !loading;
     });
   }
 
@@ -110,7 +112,29 @@ class _AuthScreenState extends State<AuthScreen> {
                         child: Column(
                           children: [
                             ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                                if (_formKey.currentState!.validate()) {
+                                  setState(() => loading = true);
+                                  var password = passwordController.value.text;
+                                  var email = emailController.value.text;
+                                  var name = nameController.value.text;
+
+                                  dynamic result = showSignIn
+                                      ? await _auth.signInWithEmailAndPassword(
+                                          email, password, context)
+                                      : await _auth.register(
+                                          email, password, name, context);
+
+                                  if (result == null) {
+                                    setState(() {
+                                      loading = false;
+                                      error = "Please supply valid email";
+                                    });
+                                  }
+                                }
+                                Navigator.pushNamed(
+                                    context, showSignIn ? '/home' : '/home');
+                              },
                               style: kButtonStyle,
                               child: Text(
                                 showSignIn ? 'Log In' : 'Register',

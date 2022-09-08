@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../model/plant_model.dart';
+import '../model/user_model.dart';
 
 class DatabaseService {
   final String uid;
@@ -13,7 +14,7 @@ class DatabaseService {
       FirebaseFirestore.instance.collection("users");
 
   final CollectionReference<Map<String, dynamic>> plantsCollection =
-      FirebaseFirestore.instance.collection("plants");
+      FirebaseFirestore.instance.collection("plant");
 
   Future<void> saveUser(String name, String email) async {
     //doc will create a new uid of Database service
@@ -24,11 +25,29 @@ class DatabaseService {
     return await userCollection.doc(uid).update({'name': name, 'email': email});
   }
 
+  MyUserData _userFromSnapshot(
+      DocumentSnapshot<Map<String, dynamic>> snapshot) {
+    var data = snapshot.data();
+    if (data == null) throw Exception("user not found");
+    return MyUserData(
+      uid: snapshot.id,
+      name: data['name'],
+      email: data['email'],
+    );
+  }
+
+//Create a SINGLE user stream
+  //stream qui récupre le user courant donc
+  // besoin de doc(uid)
+  Stream<MyUserData> get user {
+    return userCollection.doc(uid).snapshots().map(_userFromSnapshot);
+  }
+
   Future<void> addPlant(String name, int amount, int consistency) async {
     //doc will create a new uid of Database service
     return await plantsCollection
         .doc(uid)
-        .collection('recordsdetails')
+        .collection('plantsdetails')
         .doc()
         .set({
       'name': name,
@@ -59,17 +78,15 @@ class DatabaseService {
   }
 
   Future<void> updatePlantHistory(Timestamp nextDate, String docid) async {
-    Timestamp date=Timestamp.now();
-
+    Timestamp date = Timestamp.now();
 
     return await plantsCollection
         .doc(uid)
-        .collection("plantsdetail")
+        .collection("plantsdetails")
         .doc(docid)
         .update({
       'dates': FieldValue.arrayUnion([date]),
-      'nextDate': nextDate, 
-
+      'nextDate': nextDate,
     });
   }
 }

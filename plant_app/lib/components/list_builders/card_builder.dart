@@ -42,7 +42,7 @@ class DateList extends StatelessWidget {
     return ListView.builder(
       itemBuilder: (context, index) {
         return ListTile(
-          leading: Text(dates[index]),
+          leading: Text((dates[index].toString())),
         );
       },
       itemCount: dates.length,
